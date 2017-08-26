@@ -1,0 +1,8 @@
+name: diagrams
+executables:
+  diagrams:
+    main: Diagram.hs
+    dependencies:
+      - base
+      - diagrams-lib
+      - diagrams-svg
