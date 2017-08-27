@@ -31,5 +31,5 @@ main :: IO ()
 main = do
   points <- replicateM 50 generatePoint
   let lines = (centerXY ((mconcat (map createLines (cartesianProduct points))) # lw 0.1))
-  mainWith (lines `atop` centerXY (square 1 # lw none # scale 1.25))
+  mainWith (lines `atop` centerXY (square 1 # lw none # fc white # scale 1.25))
   putStrLn "use double quotes"
