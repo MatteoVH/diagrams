@@ -6,3 +6,4 @@ executables:
       - base
       - diagrams-lib
       - diagrams-svg
+      - random
