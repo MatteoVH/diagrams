@@ -1,13 +1,13 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE FlexibleContexts          #-}
+{-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE TypeFamilies              #-}
 
-import System.Random
-import Control.Monad
-import Diagrams.TwoD
-import Diagrams.Prelude hiding (Point)
-import Diagrams.Backend.SVG.CmdLine
-import Data.List
+import           Control.Monad
+import           Data.List
+import           Diagrams.Backend.SVG.CmdLine
+import           Diagrams.Prelude             hiding (Point)
+import           Diagrams.TwoD
+import           System.Random
 
 type Point = P2 Double
 
@@ -20,15 +20,16 @@ generatePoint = do
 cartesianProduct :: [a] -> [(a, a)]
 cartesianProduct list =
   case list of
-    [] -> []
+    []          -> []
     head : rest -> map (\ a -> (head, a)) rest ++ cartesianProduct rest
 
 createLines :: (Point, Point) -> Diagram B
 createLines (a, b) =
-  fromVertices ([a, b])
+  fromVertices [a, b]
 
 main :: IO ()
 main = do
   points <- replicateM 50 generatePoint
-  mainWith ((mconcat (map createLines (cartesianProduct points))) # lw 0.1)
+  let lines = (centerXY ((mconcat (map createLines (cartesianProduct points))) # lw 0.1))
+  mainWith (lines `atop` centerXY (square 1 # lw none # scale 1.25))
   putStrLn "use double quotes"
